@@ -70,7 +70,7 @@ int main(){
     do
     {
         int bytesAvailable = fifo_available(socketDescriptor);
-        printf('foundbytes\n');
+        printf("foundbytes\n");
         unsigned char* buffer = new unsigned char[bytesAvailable];
         ssize_t bytesRead = fifo_receive(buffer, bytesAvailable, socketDescriptor);
         printf("%.*s",bytesRead,buffer);
