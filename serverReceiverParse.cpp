@@ -73,7 +73,7 @@ int main(){
         //int bytesAvailable = fifo_available(socketDescriptor);
         int bytesAvailable = 128;
         std::vector<unsigned char> buffer(bytesAvailable);
-        int bytesRead = recv(socketDescriptor, buffer.data(), buffer.size(), 0);
+        int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
         std::cout << bytesRead << std::endl;
         //printf("attemtping to read %d bytes\n", bytesAvailable);
         //ssize_t bytesRead = fifo_receive(buffer, bytesAvailable, socketDescriptor);
