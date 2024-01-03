@@ -78,7 +78,7 @@ int main(){
         buffer.resize(bytesRead);
         std::cout << bytesRead << std::endl;
         for (auto const& c : buffer)
-    		std::cout << std::hex << (int)c << ' ';
+    		std::cout << (int)c << ' ';
         //printf("attemtping to read %d bytes\n", bytesAvailable);
         //ssize_t bytesRead = fifo_receive(buffer, bytesAvailable, socketDescriptor);
         //printf("read %d bytes\n", bytesRead);
