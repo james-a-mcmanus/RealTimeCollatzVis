@@ -4,6 +4,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <cstring>
+#include <vector>
 
 #include <thread>
 #include <chrono>
@@ -71,11 +72,13 @@ int main(){
     {
         //int bytesAvailable = fifo_available(socketDescriptor);
         int bytesAvailable = 128;
-        unsigned char* buffer = new unsigned char[bytesAvailable];
-        printf("attemtping to read %d bytes\n", bytesAvailable);
-        ssize_t bytesRead = fifo_receive(buffer, bytesAvailable, socketDescriptor);
-        printf("read %zd bytes\n", bytesRead);
-        printf("%.*s",(int)bytesRead,buffer);
+        std::vector<char> buffer(bytesAvailable);
+        int bytesRead = recv(socketDescriptor, buffer.data(), buffer.size(), 0);
+        std::cout << bytesRead << std::endl;
+        //printf("attemtping to read %d bytes\n", bytesAvailable);
+        //ssize_t bytesRead = fifo_receive(buffer, bytesAvailable, socketDescriptor);
+        //printf("read %d bytes\n", bytesRead);
+        //printf("%.*s",bytesRead,buffer);
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     } while(true);
 
