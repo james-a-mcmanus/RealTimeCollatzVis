@@ -69,7 +69,8 @@ int main(){
 
     do
     {
-        int bytesAvailable = fifo_available(socketDescriptor);
+        //int bytesAvailable = fifo_available(socketDescriptor);
+        int bytesAvailable = 128
         unsigned char* buffer = new unsigned char[bytesAvailable];
         printf("found %d bytes", bytesAvailable);
         ssize_t bytesRead = fifo_receive(buffer, bytesAvailable, socketDescriptor);
