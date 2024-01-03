@@ -74,8 +74,8 @@ int main(){
         unsigned char* buffer = new unsigned char[bytesAvailable];
         printf("attemtping to read %d bytes\n", bytesAvailable);
         ssize_t bytesRead = fifo_receive(buffer, bytesAvailable, socketDescriptor);
-        printf("read %d bytes", bytesRead);
-        printf("%.*s",bytesRead,buffer);
+        printf("read %zd bytes\n", bytesRead);
+        printf("%.*s",(int)bytesRead,buffer);
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     } while(true);
 
