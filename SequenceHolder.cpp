@@ -15,6 +15,7 @@ class SequenceHolder: public MessageParser {
 
 SequenceHolder::SequenceHolder(int seqlen, int socket, int bytes, std::vector<unsigned char> buf) : MessageParser(socket, bytes, buf){
 	max_seq_len = seqlen;
+	std::cout << this->SequenceHolder::socketNumber << std::endl;
 };
 
 
