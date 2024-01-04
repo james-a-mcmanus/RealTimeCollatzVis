@@ -50,7 +50,8 @@ int SequenceHolder::front(){
 
 // Checks whether the last two numbers in the queue are in the collatz sequence.
 int SequenceHolder::checkCollatz(){
-	if (this->SequenceHolder::sequence.size() < 2){
+	boost::circular_buffer<int>* seq = &this->SequenceHolder::sequence;
+	if (seq->size() < 2){
 		return 0;
 	}
 	//this->SequenceHolder::sequence()
