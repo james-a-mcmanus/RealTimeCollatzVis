@@ -48,10 +48,10 @@ int SequenceHolder::front(){
 
 // Checks whether the last two numbers in the queue are in the collatz sequence.
 int SequenceHolder::checkCollatz(){
-	boost::circular_buffer<int>* seq = &this->SequenceHolder::sequence;
+	boost::circular_buffer<int>* seq = &this->SequenceHolder::sequence; // for brevity.
 	if (seq->size() < 2){
 		return 0;
 	}
-	//this->SequenceHolder::sequence()
+	std::cout << this->SequenceHolder::sequence[seq->size()-1] << std::endl;
 	return 0;
 }
