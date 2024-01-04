@@ -35,7 +35,7 @@ int MessageParser::receiveMessage(){
 int MessageParser::parseMessage(){
 	// first 4 chars are the header. We don't know much about what they mean, 
 	// so just check that they are the same as we have seen previously or throw an error.
-	std::vector<unsigned char> headerMessage(buffer.begin()+5, buffer.begin()+7);
+	std::vector<unsigned char> headerMessage(buffer.begin()+4, buffer.begin()+6);
 	if (headerMessage != expectedHeader){
 		std::cerr << "Header received unexpected" << std::endl;
 		for (auto const& c : headerMessage)
