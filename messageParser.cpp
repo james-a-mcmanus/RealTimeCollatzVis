@@ -39,7 +39,7 @@ int MessageParser::parseMessage(){
 	if (headerMessage != expectedHeader){
 		std::cerr << "Header received unexpected" << std::endl;
 		for (auto const& c : headerMessage)
-			std::cout << std::hex << (int)c << ' ';
+			std::cout << std::hex << ntohs(c) << ' ';
 	}
 
 	// construct the hexnum from the 5th and 6th numbers in the data.
