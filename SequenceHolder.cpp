@@ -19,7 +19,7 @@ class SequenceHolder: public MessageParser {
 // Constructor
 SequenceHolder::SequenceHolder(int seqlen, int socket, int bytes, std::vector<unsigned char> buf) : MessageParser(socket, bytes, buf){
 	max_seq_len = seqlen;
-	boost::circular_buffer<int> sequence(seqlen);
+	sequence.set_capacity(seqlen);
 };
 
 // Add the number from the message buffer into the sequence.
