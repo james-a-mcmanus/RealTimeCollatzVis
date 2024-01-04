@@ -52,6 +52,6 @@ int SequenceHolder::checkCollatz(){
 	if (seq->size() < 2){
 		return 0;
 	}
-	std::cout << this->SequenceHolder::sequence[seq->size()-1] << std::endl;
+	std::cout << this->SequenceHolder::sequence[1] << std::endl;
 	return 0;
 }
