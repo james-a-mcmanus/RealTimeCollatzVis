@@ -69,7 +69,8 @@ int main(){
         int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
         mssg.buffer = buffer;
         short nextNum;
-        std::cout << mssg.parseMessage(&nextNum) << std::endl;
+        mssg.parseMessage(&nextNum);
+        std::cout << *nextNum << std:endl;
         //buffer.resize(bytesRead);
         //std::cout << bytesRead << std::endl;
         // for (auto const& c : buffer)

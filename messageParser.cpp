@@ -95,7 +95,8 @@ int MessageParser::nextState(){
 
 // Check that the number in the message corresponds to the message state (odd, even or converged.)
 int MessageParser::checkState(short num){
-	short state = this->MessageParser::nextState();
+	int state = this->MessageParser::nextState();
+	std::cout << "checking number: " << num << " Having state " << state << std::endl;
 	switch (state) {
 	case 0:
 		if (num != 1){
