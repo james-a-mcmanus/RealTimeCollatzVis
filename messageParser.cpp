@@ -5,10 +5,9 @@
 #include <unistd.h>
 #include <cstring>
 #include <vector>
+#include <queue>
 #include <iomanip>
 #include <stdlib.h>
-
-enum STATE {CONVERGED, ODD, EVEN};
 
 class MessageParser
 {
@@ -56,28 +55,20 @@ int MessageParser::parseMessage(short *num){
 	}
 
 	return 0;
+}
 
-	// std::vector<unsigned char> headerMessage(buffer.begin(), buffer.begin()+8);
+// TODO: Check the header from the message
+int MessageParser::checkHeader(){
+	return 0;
 	// if (headerMessage != expectedHeader){
 	// 	//std::cerr << "Header received unexpected" << std::endl;
 	// 	for (auto const& c : headerMessage)
 	// 		std::cout << std::hex << (int)c << ' ';
 	// 	std::cout << std::endl;
 	// }
-
-	// 6th char is the first part of the hex number
-	// 5th char is the second part.
-	// 7th char is the state (converged, odd, or even respectively)
-
-    // return nextSequence;
 }
 
-// TODO: Check the header from the message
-int MessageParser::checkHeader(){
-	return 0;
-}
-
-// Retrieve the number from the message
+// Retrieve the number from the message (contained in 4th and 5th bytes in reverse order)
 short MessageParser::nextNum(){
 	short j;
 	j = buffer[5];
@@ -86,7 +77,7 @@ short MessageParser::nextNum(){
 	return j;
 }
 
-// Retrieve the number-state from the message
+// Retrieve the number-state from the message (contained at the 6th byte)
 int MessageParser::nextState(){
 	int state = (int)buffer[6];
 	return state;

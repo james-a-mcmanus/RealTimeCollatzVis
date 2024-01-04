@@ -11,6 +11,7 @@
 #include <chrono>
 
 #include "messageParser.h"
+#include "SequenceHolder.h"
 
 int main(){
 
@@ -55,31 +56,20 @@ int main(){
 
     std::cout << "Client connected: " << inet_ntoa(clientAddress.sin_addr) << std::endl;    
 
-
     int bytesAvailable = 128;
+    int maxSequenceLen = 5000;
     std::vector<unsigned char> buffer(bytesAvailable);
-    MessageParser mssg(clientSocket, bytesAvailable, buffer);
+    SequenceHolder sequence(maxSequenceLen, clientSocket, bytesAvailable, buffer);
     
     // Read from the socket in 200ms intervals.
     do
     {
-        // int bytesAvailable = 128;
-        //std::vector<unsigned char> buffer(bytesAvailable);
-        //int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
-        //mssg.buffer = buffer;
-        mssg.receiveMessage();
-        short nextNum;
-        mssg.parseMessage(&nextNum);
-        std::cout << nextNum << std::endl;
-        //buffer.resize(bytesRead);
-        //std::cout << bytesRead << std::endl;
-        // for (auto const& c : buffer)
-    	// 	std::cout << std::hex <<(int)c << ' ';
+        sequence.addFromMessage();
+        //short nextNum;
+        //mssg.parseMessage(&nextNum);
+        std::cout << sequence.back() << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     } while(true); //
-
-    //mssg.socketNumber = clientSocket;
-    //mssg.parseMessage();
 
     // Close the client socket
     std::cout <<"closing connection\n";
