@@ -35,11 +35,11 @@ int MessageParser::receiveMessage(){
 int MessageParser::parseMessage(){
 	// first 4 chars are the header. We don't know much about what they mean, 
 	// so just check that they are the same as we have seen previously or throw an error.
-	std::vector<unsigned char> headerMessage(buffer.begin(), buffer.begin()+4);
+	std::vector<unsigned char> headerMessage(buffer.begin()+5, buffer.begin()+6);
 	if (headerMessage != expectedHeader){
 		std::cerr << "Header received unexpected" << std::endl;
 		for (auto const& c : headerMessage)
-			std::cout << ntohl(c) << ' ';
+			std::cout << ntohs(c) << ' ';
 	}
 
 	// construct the hexnum from the 5th and 6th numbers in the data.
