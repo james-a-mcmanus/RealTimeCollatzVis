@@ -44,9 +44,9 @@ int MessageParser::parseMessage(){
 	}
 
 	short j;
-	j = buffer[4];
+	j = buffer[5];
 	j <<= 8;
-	j |= buffer[5];
+	j |= buffer[4];
 	std::cout << j << std::endl;
 
 	// construct the hexnum from the 4th and 5th numbers in the data.
