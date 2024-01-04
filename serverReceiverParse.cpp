@@ -57,7 +57,7 @@ int main(){
     std::cout << "Client connected: " << inet_ntoa(clientAddress.sin_addr) << std::endl;    
 
     int bytesAvailable = 128;
-    int maxSequenceLen = 20;
+    int maxSequenceLen = 5000;
     std::vector<unsigned char> buffer(bytesAvailable);
     SequenceHolder sequence(maxSequenceLen, clientSocket, bytesAvailable, buffer);
     
