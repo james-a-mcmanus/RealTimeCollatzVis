@@ -11,7 +11,11 @@ class MessageParser
 		//MessageParser(int s, int ml, std::vector<unsigned char> b);
 		MessageParser(int socket, int bytes, std::vector<unsigned char> buf);
 		int receiveMessage();
-		int parseMessage();
+		int parseMessage(short *num);
+		int checkState(short num);
+		int nextState();
+		short nextNum();
+		int checkHeader();
 };
 
 #endif

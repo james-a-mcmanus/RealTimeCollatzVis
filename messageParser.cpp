@@ -8,6 +8,8 @@
 #include <iomanip>
 #include <stdlib.h>
 
+enum STATE {CONVERGED, ODD, EVEN};
+
 class MessageParser
 {
 	public:
@@ -17,7 +19,12 @@ class MessageParser
 		std::vector<unsigned char> expectedHeader = {64, 82, 3, 0};
 
 		int receiveMessage();
-		int parseMessage();
+		int parseMessage(short *num);
+		int checkState(short num);
+		int nextState();
+		short nextNum();
+		int checkHeader();
+
 		MessageParser(int s, int b, std::vector<unsigned char> buf);
 };
 
@@ -32,36 +39,79 @@ int MessageParser::receiveMessage(){
 	return bytesRead;
 }
 
-int MessageParser::parseMessage(){
+int MessageParser::parseMessage(short *num){
+
 	// first 4 chars are the header. We don't know much about what they mean, 
 	// so just check that they are the same as we have seen previously or throw an error.
-	std::vector<unsigned char> headerMessage(buffer.begin(), buffer.begin()+8);
-	if (headerMessage != expectedHeader){
-		//std::cerr << "Header received unexpected" << std::endl;
-		for (auto const& c : headerMessage)
-			std::cout << std::hex << (int)c << ' ';
-		std::cout << std::endl;
+	if (this->MessageParser::checkHeader() != 0){
+		std::cerr << "Header Error" << std::endl;
+		return -1;
 	}
 
-	short j;
-	j = buffer[5];
-	j <<= 8;
-	j |= buffer[4];
-	std::cout << j << std::endl;
+	// retrieve the number from the message, and check whether it matches the state
+	*num = this->MessageParser::nextNum();
+	if (this->MessageParser::checkState(*num) != 0){
+		std::cerr << "State Error" << std::endl;
+		return -1;
+	}
 
-	// construct the hexnum from the 4th and 5th numbers in the data.
-    std::string hexNum = "0x";
-    hexNum.append(1, buffer[6]);
-    hexNum.append(1, buffer[5]);
-    char * p;
-    long nextSequence = strtol(hexNum.c_str(), &p, 16);
-    if (*p != 0){
-    	//std::cerr << "Couldn't parse data as hexadecimal" << std::endl;
-    }
+	return 0;
+
+	// std::vector<unsigned char> headerMessage(buffer.begin(), buffer.begin()+8);
+	// if (headerMessage != expectedHeader){
+	// 	//std::cerr << "Header received unexpected" << std::endl;
+	// 	for (auto const& c : headerMessage)
+	// 		std::cout << std::hex << (int)c << ' ';
+	// 	std::cout << std::endl;
+	// }
 
 	// 6th char is the first part of the hex number
 	// 5th char is the second part.
 	// 7th char is the state (converged, odd, or even respectively)
 
-    return nextSequence;
+    // return nextSequence;
+}
+
+// TODO: Check the header from the message
+int MessageParser::checkHeader(){
+	return 0;
+}
+
+// Retrieve the number from the message
+short MessageParser::nextNum(){
+	short j;
+	j = buffer[5];
+	j <<= 8;
+	j |= buffer[4];
+	return j;
+}
+
+// Retrieve the number-state from the message
+int MessageParser::nextState(){
+	int state = (int)buffer[6];
+	return state;
+}
+
+
+// Check that the number in the message corresponds to the message state (odd, even or converged.)
+int MessageParser::checkState(short num){
+	short state = this->MessageParser::nextState();
+	switch (state) {
+	case 0:
+		if (num != 1){
+			std::cerr << "Warning! State is converged but number is " << num << std::endl;
+			return -1;
+		}
+	case 1:
+		if ((num % 2) != 1){
+			std::cerr << "Warning! State is odd but number is " << num << std::endl;
+			return -1;
+		}
+	case 2:
+		if ((num % 2) != 0){
+			std::cerr << "Warning! State is even but number is " << num << std::endl;
+			return -1;
+		}
+	}
+	return 0;
 }

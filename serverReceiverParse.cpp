@@ -68,7 +68,8 @@ int main(){
         std::vector<unsigned char> buffer(bytesAvailable);
         int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
         mssg.buffer = buffer;
-        std::cout << mssg.parseMessage() << std::endl;
+        short nextNum;
+        std::cout << mssg.parseMessage(&nextNum) << std::endl;
         //buffer.resize(bytesRead);
         //std::cout << bytesRead << std::endl;
         // for (auto const& c : buffer)
@@ -77,7 +78,7 @@ int main(){
     } while(true); //
 
     //mssg.socketNumber = clientSocket;
-    mssg.parseMessage();
+    //mssg.parseMessage();
 
     // Close the client socket
     std::cout <<"closing connection\n";
