@@ -70,7 +70,7 @@ int main(){
         mssg.buffer = buffer;
         short nextNum;
         mssg.parseMessage(&nextNum);
-        std::cout << *nextNum << std:endl;
+        std::cout << nextNum << std::endl;
         //buffer.resize(bytesRead);
         //std::cout << bytesRead << std::endl;
         // for (auto const& c : buffer)
