@@ -61,13 +61,13 @@ int SequenceHolder::checkCollatz(){
 		return 0;
 	}
 	else if (prevNum % 2 == 0){
-		if ((prevNum / 2) == curNum){
+		if ((prevNum / 2) != curNum){
 			std::cerr << "Error: Collatz Sequence not maintaned on even number" << std::endl;
 			return -1;
 		}
 	}
 	else if (prevNum % 2 == 1){
-		if ((prevNum * 3 + 1) == curNum){
+		if ((prevNum * 3 + 1) != curNum){
 			std::cerr << "Error: Collatz Sequence not maintaned on odd number" << std::endl;
 			return -1;
 		}
