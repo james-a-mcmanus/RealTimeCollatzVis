@@ -57,7 +57,7 @@ int main(){
     std::cout << "Client connected: " << inet_ntoa(clientAddress.sin_addr) << std::endl;    
 
     int bytesAvailable = 128;
-    int maxSequenceLen = 5000;
+    int maxSequenceLen = 20;
     std::vector<unsigned char> buffer(bytesAvailable);
     SequenceHolder sequence(maxSequenceLen, clientSocket, bytesAvailable, buffer);
     
@@ -66,8 +66,6 @@ int main(){
     {
         sequence.receiveMessage();
         sequence.addFromMessage();
-        //short nextNum;
-        //mssg.parseMessage(&nextNum);
         std::cout << sequence.back() << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     } while(true); //
