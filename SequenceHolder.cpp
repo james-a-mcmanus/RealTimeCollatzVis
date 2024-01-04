@@ -34,7 +34,7 @@ int SequenceHolder::addFromMessage(){
 	// 	this->SequenceHolder::sequence.pop();
 	// }
 	std::cout << "number: " << nextNum << std::endl;
-	this->SequenceHolder::sequence.push_back(nextNum); // should be safe conversion since int >= 16bytes
+	this->SequenceHolder::sequence.push_back((int)nextNum); // should be safe conversion since int >= 16bytes
 	return -1;
 }
 
