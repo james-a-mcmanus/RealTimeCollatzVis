@@ -30,10 +30,8 @@ int SequenceHolder::addFromMessage(){
 		std::cerr << "" << std::endl;
 		return -1;
 	}
-	// if (this->SequenceHolder::sequence.size() > this->SequenceHolder::max_seq_len){
-	// 	this->SequenceHolder::sequence.pop();
-	// }
 	this->SequenceHolder::sequence.push_front((int)nextNum); // should be safe conversion since int >= 16bytes
+	this->SequenceHolder::checkCollatz();
 	return -1;
 }
 
