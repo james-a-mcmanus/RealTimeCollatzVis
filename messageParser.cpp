@@ -51,8 +51,8 @@ int MessageParser::parseMessage(){
 
 	// construct the hexnum from the 4th and 5th numbers in the data.
     std::string hexNum = "0x";
-    hexNum.append(1, buffer[5]);
     hexNum.append(1, buffer[6]);
+    hexNum.append(1, buffer[5]);
     char * p;
     long nextSequence = strtol(hexNum.c_str(), &p, 16);
     if (*p != 0){
