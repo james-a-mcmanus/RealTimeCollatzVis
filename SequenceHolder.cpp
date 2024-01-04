@@ -27,12 +27,17 @@ int SequenceHolder::addFromMessage(){
 
 	short nextNum;
 	if (this->SequenceHolder::parseMessage(&nextNum) != 0){
-		std::cerr << "" << std::endl;
+		std::cerr << "Parsing Error" << std::endl;
 		return -1;
 	}
+	
 	this->SequenceHolder::sequence.push_front((int)nextNum); // should be safe conversion since int >= 16bytes
-	this->SequenceHolder::checkCollatz();
-	return -1;
+	
+	if (this->SequenceHolder::checkCollatz() != 0){
+		std::cerr << "Collatz Error" << std::endl;
+		return -1;
+	}
+	return 0;
 }
 
 
@@ -41,17 +46,28 @@ int SequenceHolder::front(){
 	return this->SequenceHolder::sequence.front();
 }
 
-// Return the penultimate number in the sequence
-// int SequenceHolder::penultimate(){
-// 	return this->SequenceHolder::sequence.();
-// }
-
 // Checks whether the last two numbers in the queue are in the collatz sequence.
 int SequenceHolder::checkCollatz(){
 	boost::circular_buffer<int>* seq = &this->SequenceHolder::sequence; // for brevity.
 	if (seq->size() < 2){
 		return 0;
 	}
-	std::cout << this->SequenceHolder::sequence[1] << std::endl;
+	int prevNum = this->SequenceHolder::sequence[1];
+	int curNum = this->SequenceHolder::sequence[0];
+	if (prevNum == 1){
+		return 0;
+	}
+	else if (prevNum % 2 == 0){
+		if (prevNum / 2 == curNum){
+			std::cerr << "Error: Collatz Sequence not maintaned on even number" << std::endl;
+			return -1;
+		}
+	}
+	else if (prevNum % 2 == 1){
+		if ((prevNum * 3 + 1) == curNum){
+			std::cerr << "Error: Collatz Sequence not maintaned on odd number" << std::endl;
+			return -1;
+		}
+	}
 	return 0;
 }
