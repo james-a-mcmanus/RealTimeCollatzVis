@@ -58,16 +58,16 @@ int main(){
 
     int bytesAvailable = 128;
     std::vector<unsigned char> buffer(bytesAvailable);
-    //MessageParser mssg(clientSocket, bytesAvailable, buffer);
     MessageParser mssg(clientSocket, bytesAvailable, buffer);
     
     // Read from the socket in 200ms intervals.
     do
     {
         // int bytesAvailable = 128;
-        std::vector<unsigned char> buffer(bytesAvailable);
-        int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
-        mssg.buffer = buffer;
+        //std::vector<unsigned char> buffer(bytesAvailable);
+        //int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
+        //mssg.buffer = buffer;
+        mssg.receiveMessage();
         short nextNum;
         mssg.parseMessage(&nextNum);
         std::cout << nextNum << std::endl;
