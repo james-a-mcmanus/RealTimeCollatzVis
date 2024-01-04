@@ -10,4 +10,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(UBIITS_INCLUDE_PATH CACHE PATH "specify ubiITS inculde path")
 set(UBIITS_BUILD_PATH CACHE PATH "specify ubiITS binary path")
 
-add_executable(serverReceiverParse serverReceiverParse)
+set(SOURCE_FILES messageParser.cpp serverReceiverParse.cpp)
+
+add_executable(serverReceiverParse ${SOURCE_FILES})

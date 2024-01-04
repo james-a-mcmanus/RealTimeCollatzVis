@@ -10,21 +10,7 @@
 #include <thread>
 #include <chrono>
 
-//set functions to receive the series of incoming bytes
-ssize_t fifo_receive(unsigned char *data, int len, int socketDescriptor)
-{
-    ssize_t bytesRead = recv(socketDescriptor, data, len, 0);
-    return bytesRead;
-};
-
-//Checks how many bytes available to read from socket: probably opens us up to race condition...
-int fifo_available(int socketDescriptor)
-{
-    int bytesAvailable;
-    const int error = ioctl(socketDescriptor, FIONREAD, &bytesAvailable);
-    return bytesAvailable;
-};
-
+#include "messageParser.h"
 
 int main(){
 
@@ -69,23 +55,29 @@ int main(){
 
     std::cout << "Client connected: " << inet_ntoa(clientAddress.sin_addr) << std::endl;    
 
+
+    int bytesAvailable = 128;
+    std::vector<unsigned char> buffer(bytesAvailable);
+    //MessageParser mssg(clientSocket, bytesAvailable, buffer);
+    MessageParser mssg(clientSocket, bytesAvailable, buffer);
+    
+    // Read from the socket in 200ms intervals.
     do
     {
-        //int bytesAvailable = fifo_available(socketDescriptor);
-        int bytesAvailable = 128;
+        // int bytesAvailable = 128;
         std::vector<unsigned char> buffer(bytesAvailable);
         int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
-        buffer.resize(bytesRead);
-        std::cout << bytesRead << std::endl;
-        for (auto const& c : buffer)
-    		std::cout << (int)c << ' ';
-        //printf("attemtping to read %d bytes\n", bytesAvailable);
-        //ssize_t bytesRead = fifo_receive(buffer, bytesAvailable, socketDescriptor);
-        //printf("read %d bytes\n", bytesRead);
-        //printf("%.*s",bytesRead,buffer);
+        mssg.buffer = buffer;
+        std::cout << mssg.parseMessage() << std::endl;
+        //buffer.resize(bytesRead);
+        //std::cout << bytesRead << std::endl;
+        // for (auto const& c : buffer)
+    	// 	std::cout << std::hex <<(int)c << ' ';
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-    } while(true);
+    } while(true); //
 
+    //mssg.socketNumber = clientSocket;
+    mssg.parseMessage();
 
     // Close the client socket
     std::cout <<"closing connection\n";
