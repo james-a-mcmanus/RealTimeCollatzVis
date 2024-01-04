@@ -7,10 +7,11 @@
 class SequenceHolder: public MessageParser {
 
 	public:
-		std::queue<int> sequence;
+		//std::queue<int> sequence;
+		boost::circular_buffer<int> sequence;
 		int max_seq_len;
 		int addFromMessage();
-		int back();
+		int front();
 		int checkCollatz();
 		SequenceHolder(int seqlen, int socket, int bytes, std::vector<unsigned char> buf);
 };
@@ -18,6 +19,7 @@ class SequenceHolder: public MessageParser {
 // Constructor
 SequenceHolder::SequenceHolder(int seqlen, int socket, int bytes, std::vector<unsigned char> buf) : MessageParser(socket, bytes, buf){
 	max_seq_len = seqlen;
+	boost::circular_buffer<int> sequence(seqlen);
 };
 
 // Add the number from the message buffer into the sequence.
@@ -28,17 +30,17 @@ int SequenceHolder::addFromMessage(){
 		std::cerr << "" << std::endl;
 		return -1;
 	}
-	if (this->SequenceHolder::sequence.size() > this->SequenceHolder::max_seq_len){
-		this->SequenceHolder::sequence.pop();
-	}
-	this->SequenceHolder::sequence.push(nextNum); // should be safe conversion since int >= 16bytes
+	// if (this->SequenceHolder::sequence.size() > this->SequenceHolder::max_seq_len){
+	// 	this->SequenceHolder::sequence.pop();
+	// }
+	this->SequenceHolder::sequence.push_back(nextNum); // should be safe conversion since int >= 16bytes
 	return -1;
 }
 
 
 // Return the last number in the sequence
-int SequenceHolder::back(){
-	return this->SequenceHolder::sequence.back();
+int SequenceHolder::front(){
+	return this->SequenceHolder::sequence.front();
 }
 
 // Return the penultimate number in the sequence
