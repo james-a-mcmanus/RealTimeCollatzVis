@@ -43,7 +43,13 @@ int MessageParser::parseMessage(){
 		std::cout << std::endl;
 	}
 
-	// construct the hexnum from the 5th and 6th numbers in the data.
+	short j;
+	j = buffer[4];
+	j <<= 8;
+	j |= buffer[5];
+	std::cout << j << std::endl;
+
+	// construct the hexnum from the 4th and 5th numbers in the data.
     std::string hexNum = "0x";
     hexNum.append(1, buffer[5]);
     hexNum.append(1, buffer[6]);
