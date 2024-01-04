@@ -54,11 +54,14 @@ int SequenceHolder::checkCollatz(){
 	}
 	int prevNum = this->SequenceHolder::sequence[1];
 	int curNum = this->SequenceHolder::sequence[0];
+
+	std::cout << "previous: " << prevNum << " Current: " << curNum << std:endl;
+
 	if (prevNum == 1){
 		return 0;
 	}
 	else if (prevNum % 2 == 0){
-		if (prevNum / 2 == curNum){
+		if ((prevNum / 2) == curNum){
 			std::cerr << "Error: Collatz Sequence not maintaned on even number" << std::endl;
 			return -1;
 		}
