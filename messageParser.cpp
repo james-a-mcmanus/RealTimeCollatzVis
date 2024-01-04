@@ -38,6 +38,8 @@ int MessageParser::parseMessage(){
 	std::vector<unsigned char> headerMessage(buffer.begin(), buffer.begin()+4);
 	if (headerMessage != expectedHeader){
 		std::cerr << "Header received unexpected" << std::endl;
+		for (auto const& c : headerMessage)
+			std::cout << c << ' ';
 	}
 
 	// construct the hexnum from the 5th and 6th numbers in the data.
