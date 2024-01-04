@@ -103,16 +103,19 @@ int MessageParser::checkState(short num){
 			std::cerr << "Warning! State is converged but number is " << num << std::endl;
 			return -1;
 		}
+		return 0;
 	case 1:
 		if ((num % 2) != 1){
 			std::cerr << "Warning! State is odd but number is " << num << std::endl;
 			return -1;
 		}
+		return 0;
 	case 2:
 		if ((num % 2) != 0){
 			std::cerr << "Warning! State is even but number is " << num << std::endl;
 			return -1;
 		}
+		return 0;
 	}
-	return 0;
+	return -1;
 }
