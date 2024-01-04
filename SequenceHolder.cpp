@@ -55,7 +55,7 @@ int SequenceHolder::checkCollatz(){
 	int prevNum = this->SequenceHolder::sequence[1];
 	int curNum = this->SequenceHolder::sequence[0];
 
-	std::cout << "previous: " << prevNum << " Current: " << curNum << std:endl;
+	std::cout << "previous: " << prevNum << " Current: " << curNum << std::endl;
 
 	if (prevNum == 1){
 		return 0;
