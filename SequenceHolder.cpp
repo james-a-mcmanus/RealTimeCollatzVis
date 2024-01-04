@@ -33,6 +33,7 @@ int SequenceHolder::addFromMessage(){
 	// if (this->SequenceHolder::sequence.size() > this->SequenceHolder::max_seq_len){
 	// 	this->SequenceHolder::sequence.pop();
 	// }
+	std::cout << "number: " << nextNum << std::endl;
 	this->SequenceHolder::sequence.push_back(nextNum); // should be safe conversion since int >= 16bytes
 	return -1;
 }
