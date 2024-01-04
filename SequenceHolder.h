@@ -2,6 +2,7 @@
 #define _SequenceHolder_
 
 #include <queue>
+#include <vector>
 
 class SequenceHolder: public MessageParser {
 	public:

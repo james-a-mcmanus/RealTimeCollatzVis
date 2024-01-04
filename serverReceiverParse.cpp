@@ -64,6 +64,7 @@ int main(){
     // Read from the socket in 200ms intervals.
     do
     {
+        sequence.receiveMessage();
         sequence.addFromMessage();
         //short nextNum;
         //mssg.parseMessage(&nextNum);
