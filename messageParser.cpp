@@ -37,7 +37,7 @@ int MessageParser::parseMessage(){
 	// so just check that they are the same as we have seen previously or throw an error.
 	std::vector<unsigned char> headerMessage(buffer.begin(), buffer.begin()+8);
 	if (headerMessage != expectedHeader){
-		std::cerr << "Header received unexpected" << std::endl;
+		//std::cerr << "Header received unexpected" << std::endl;
 		for (auto const& c : headerMessage)
 			std::cout << std::hex << (int)c << ' ';
 		std::cout << std::endl;
@@ -50,7 +50,7 @@ int MessageParser::parseMessage(){
     char * p;
     long nextSequence = strtol(hexNum.c_str(), &p, 16);
     if (*p != 0){
-    	std::cerr << "Couldn't parse data as hexadecimal" << std::endl;
+    	//std::cerr << "Couldn't parse data as hexadecimal" << std::endl;
     }
 
 	// 6th char is the first part of the hex number
