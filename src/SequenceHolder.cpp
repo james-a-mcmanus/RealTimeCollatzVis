@@ -7,7 +7,7 @@
 class SequenceHolder: public MessageParser {
 
 	public:
-		boost::circular_buffer<int> sequence;
+		boost::circular_buffer<double> sequence;
 		int max_seq_len;
 		int addFromMessage();
 		int front();
@@ -29,7 +29,7 @@ int SequenceHolder::addFromMessage(){
 		std::cerr << "Parsing Error" << std::endl;
 		return -1;
 	}
-	this->SequenceHolder::sequence.push_front((int)nextNum); // should be safe conversion since int >= 16bytes
+	this->SequenceHolder::sequence.push_front(static_cast<double>(nextNum)); // should be safe conversion since int >= 16bytes
 	
 	if (this->SequenceHolder::checkCollatz() != 0){
 		std::cerr << "Collatz Error" << std::endl;
@@ -47,7 +47,7 @@ int SequenceHolder::front(){
 // Checks whether the last two numbers in the queue are in the collatz sequence.
 int SequenceHolder::checkCollatz(){
 	
-	boost::circular_buffer<int>* seq = &this->SequenceHolder::sequence; // for brevity.
+	boost::circular_buffer<double>* seq = &this->SequenceHolder::sequence; // for brevity.
 	if (seq->size() < 2){
 		return 0;
 	}
