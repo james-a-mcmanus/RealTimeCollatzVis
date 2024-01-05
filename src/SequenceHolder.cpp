@@ -13,6 +13,8 @@ class SequenceHolder: public MessageParser {
 		int front();
 		int checkCollatz();
 		SequenceHolder(int seqlen, int buf_len);
+		boost::circular_buffer<double>::const_iterator begin();
+		boost::circular_buffer<double>::const_iterator end();
 };
 
 // Constructor
@@ -42,6 +44,14 @@ int SequenceHolder::addFromMessage(){
 // Return the last number in the sequence
 int SequenceHolder::front(){
 	return this->SequenceHolder::sequence.front();
+}
+
+boost::circular_buffer<double>::const_iterator SequenceHolder::begin(){
+	return this->SequenceHolder::sequence.begin();
+}
+
+boost::circular_buffer<double>::const_iterator SequenceHolder::end(){
+	return this->SequenceHolder::sequence.end();
 }
 
 // Checks whether the last two numbers in the queue are in the collatz sequence.

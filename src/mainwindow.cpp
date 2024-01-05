@@ -40,9 +40,10 @@ void MainWindow::rePlot(){
 
     std::cout << this->dataHandler.front() << std::endl;
     //boost::circular_buffer<double> seq = ;
-    //for (auto it = this->dataHandler.sequence.begin(); it != this->dataHandler.sequence.end(); ++it)
-        //std::cout << *it;
-    //std::cout << std::endl;
+    for (auto it = this->dataHandler.begin(); it != this->dataHandler.end(); ++it){
+        std::cout << *it;
+    }
+    std::cout << std::endl;
 
     int num_data = this->dataHandler.sequence.size();
     QVector<double> data(num_data);
