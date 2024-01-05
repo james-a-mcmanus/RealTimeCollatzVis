@@ -30,7 +30,7 @@ class MessageParser
 MessageParser::MessageParser(int s, int buf_len){//std::vector<unsigned char> buf){
 	socketNumber = s;
 	messageLength = buf_len;
-	std::vector<unsigned char> buffer(buf_len);;
+	std::vector<unsigned char> buffer(buf_len);
 };
 
 int MessageParser::receiveMessage(){
