@@ -41,9 +41,8 @@ void MainWindow::rePlot(){
     QVector<double> data(num_data);
     for (int i=0; i<num_data; i++){
         data[i] = this->dataHandler.sequence[i];
+        std::cout << data[i];
     }
-    for (double i: data)
-        std::cout << i << ' ' << std::endl;
 
     QVector<double> x(data.size()); // initialize with entries 0..100
     // create graph and assign data to it:
