@@ -41,7 +41,7 @@ void MainWindow::rePlot(){
     QVector<double> x(this->dataHandler.size()); // initialize with entries 0..100   
     QVector<double> data(this->dataHandler.size()); // initialize with entries 0..100       
     
-    // populate the data vectors.
+    // populate the chart QVectors.
     int i0 = 0;
     for (auto it = this->dataHandler.begin(); it != this->dataHandler.end(); ++it){
         data[i0] = *it;
@@ -65,7 +65,6 @@ void MainWindow::rePlot(){
 
 void MainWindow::timerSlot(){
     this->refreshData();
-    std::cout << this->dataHandler.front() << std::endl;
     this->rePlot();
 }
 

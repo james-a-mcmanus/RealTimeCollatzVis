@@ -3,4 +3,5 @@ build/
 lib/
 .qmake.stash
 Makefile
-testQT2/testQT2.pro.autosave
+testQT2/
+RealTimeCollatzVis.pro.user
