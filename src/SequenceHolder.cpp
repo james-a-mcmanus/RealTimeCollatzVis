@@ -13,8 +13,8 @@ class SequenceHolder: public MessageParser {
 		int front();
 		int checkCollatz();
 		SequenceHolder(int seqlen, int buf_len);
-		boost::circular_buffer<double>::const_iterator begin();
-		boost::circular_buffer<double>::const_iterator end();
+		boost::circular_buffer<double>::const_reverse_iterator begin();
+		boost::circular_buffer<double>::const_reverse_iterator end();
 		int size();
 };
 
@@ -47,12 +47,12 @@ int SequenceHolder::front(){
 	return this->SequenceHolder::sequence.front();
 }
 
-boost::circular_buffer<double>::const_iterator SequenceHolder::begin(){
-	return this->SequenceHolder::sequence.begin();
+boost::circular_buffer<double>::const_reverse_iterator SequenceHolder::begin(){
+	return this->SequenceHolder::sequence.rbegin();
 }
 
-boost::circular_buffer<double>::const_iterator SequenceHolder::end(){
-	return this->SequenceHolder::sequence.end();
+boost::circular_buffer<double>::const_reverse_iterator SequenceHolder::end(){
+	return this->SequenceHolder::sequence.rend();
 }
 
 int SequenceHolder::size(){

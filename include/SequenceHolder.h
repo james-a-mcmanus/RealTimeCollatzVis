@@ -13,8 +13,8 @@ class SequenceHolder: public MessageParser {
 		int checkCollatz();
 		int addFromMessage();
 		int front(); // get from the front
-		boost::circular_buffer<double>::const_iterator begin();
-		boost::circular_buffer<double>::const_iterator end();
+		boost::circular_buffer<double>::const_reverse_iterator begin();
+		boost::circular_buffer<double>::const_reverse_iterator end();
 		int size();
 };
 
