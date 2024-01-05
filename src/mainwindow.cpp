@@ -42,7 +42,7 @@ void MainWindow::rePlot(){
     QVector<double> data(this->dataHandler.size()); // initialize with entries 0..100       
     
     int i0 = 0;
-    for (auto it = this->dataHandler.begin(); it != this->dataHandler.end(); ++it){
+    for (auto it = this->dataHandler.end(); it != this->dataHandler.begin(); --it){
         data[i0] = *it;
         x[i0] = i0;
     }
