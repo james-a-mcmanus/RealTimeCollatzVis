@@ -12,7 +12,8 @@
 class MessageParser
 {
 	public:
-		int socketNumber;
+		int clientSocket;
+		int socketDescriptor;
 		int messageLength;
 		std::vector<unsigned char> buffer;
 		std::vector<unsigned char> expectedHeader = {64, 82, 3, 0};
@@ -23,19 +24,35 @@ class MessageParser
 		int nextState();
 		short nextNum();
 		int checkHeader();
+		int setupSocket(int* cs, int* sd);
+		int initialise();
 
-		MessageParser(int s, int buf_len);
+		MessageParser(int buf_len);
 };
 
-MessageParser::MessageParser(int s, int buf_len){//std::vector<unsigned char> buf){
-	socketNumber = s;
+MessageParser::MessageParser(int buf_len){
+	clientSocket = -1;
+	socketDescriptor = -1;
 	messageLength = buf_len;
 	std::vector<unsigned char> buf(buf_len);
 	buffer = buf;
 };
 
+int MessageParser::initialise(){
+	int sd;
+    int cs;
+    if (this->setupSocket(&cs, &sd) != 0){
+        std::cerr << "Error Setting Up Socket" << std::endl;
+        return -1;
+    }
+    this->clientSocket = cs;
+    this->socketDescriptor = sd;
+    return 0;
+}
+
 int MessageParser::receiveMessage(){
-	int bytesRead = recv(socketNumber, buffer.data(), buffer.size(), 0);
+	// TODO: check clientSocket > 0;
+	int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
 	return bytesRead;
 }
 
@@ -109,4 +126,51 @@ int MessageParser::checkState(short num){
 		return 0;
 	}
 	return -1;
+}
+
+// helper function to setup the socket and connection.
+int MessageParser::setupSocket(int* cs, int* sd){
+    // Create a TCP socket
+    int socketDescriptor = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (socketDescriptor == -1) {
+        std::cerr << "Failed to create socket" << std::endl;
+        return 1;
+    }
+
+    // Set up the server address and port
+    sockaddr_in serverAddress{};
+    serverAddress.sin_family = AF_INET; // addr family
+    serverAddress.sin_port = htons(8080);  // Change this to your desired port
+    serverAddress.sin_addr.s_addr = INADDR_ANY; // 
+
+    // Bind the socket to the server address
+    if (bind(socketDescriptor, reinterpret_cast<sockaddr*>(&serverAddress), sizeof(serverAddress)) == -1) {
+        std::cerr << "Failed to bind socket" << std::endl;
+        close(socketDescriptor);
+        return 1;
+    }
+
+    // Listen for incoming connections
+    if (listen(socketDescriptor, SOMAXCONN) == -1) {
+        std::cerr << "Failed to listen for connections" << std::endl;
+        close(socketDescriptor);
+        return 1;
+    }
+
+    std::cout << "Server listening on port 8080" << std::endl;
+
+    // Accept an incoming connection
+    sockaddr_in clientAddress{};
+    socklen_t clientAddressLength = sizeof(clientAddress);
+    int clientSocket = accept(socketDescriptor, reinterpret_cast<sockaddr*>(&clientAddress), &clientAddressLength); // blocking
+    if (clientSocket == -1) {
+        std::cerr << "Failed to accept connection" << std::endl;
+        close(socketDescriptor);
+        return 1;
+    }
+
+    *cs = clientSocket;
+    *sd = socketDescriptor;
+    std::cout << "Client connected: " << inet_ntoa(clientAddress.sin_addr) << std::endl;
+    return 0;
 }

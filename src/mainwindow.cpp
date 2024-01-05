@@ -21,12 +21,13 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , dataHandler(0, 4, 100, 100)
+    , dataHandler(100, 100)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
     mDataTimer.start(200);
+    dataHandler.initialise();
 }
 
 MainWindow::~MainWindow()
@@ -36,8 +37,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::generateData(){
     // generate some data:
-    QVector<double> x(100 + this->counter), y(100 + this->counter); // initialize with entries 0..100
-    for (int i=0; i<100+this->counter; ++i)
+    QVector<double> x(100), y(100); // initialize with entries 0..100
+    for (int i=0; i<100; ++i)
     {
         x[i] = i/50.0 - 1; // x goes from -1 to 1
         y[i] = x[i]*x[i]; // let's plot a quadratic function
