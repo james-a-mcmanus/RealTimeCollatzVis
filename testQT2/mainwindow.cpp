@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
     mDataTimer.start(200);
     counter = 0;
-    //sequence.set_capacity(100);
+    sequence.set_capacity(100);
 }
 
 MainWindow::~MainWindow()
