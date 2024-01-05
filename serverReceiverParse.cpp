@@ -14,7 +14,7 @@
 #include "SequenceHolder.h"
 #include "DataUpdater.h"
 
-int setupSocket(){
+int setupSocket(int* cs, int* sd){
     // Create a TCP socket
     int socketDescriptor = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (socketDescriptor == -1) {
@@ -54,13 +54,20 @@ int setupSocket(){
         return 1;
     }
 
+    *cs = clientSocket;
+    *sd = socketDescriptor;
     std::cout << "Client connected: " << inet_ntoa(clientAddress.sin_addr) << std::endl;
-    return clientSocket;    
+    return 0;
 }
 
 int main(){
 
-    int clientSocket = setupSocket();
+    int socketDescriptor;
+    int clientSocket;
+    if (setupSocket(&socketDescriptor, &clientSocket) != 0){
+        std::cerr << "Error Setting Up Socket" << std::endl;
+        return -1;
+    }
 
     int bytesAvailable = 128;
     int maxSequenceLen = 5000;
@@ -71,7 +78,6 @@ int main(){
     {
         sequence.receiveMessage();
         sequence.addFromMessage();
-        std::cout << "70" << std::endl;
         std::cout << sequence.front() << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     } while(true); //
