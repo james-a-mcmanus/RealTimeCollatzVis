@@ -65,7 +65,6 @@ int main(){
     do
     {
         sequence.receiveMessage();
-        std::cout << "68" << std::endl;
         sequence.addFromMessage();
         std::cout << "70" << std::endl;
         std::cout << sequence.front() << std::endl;
