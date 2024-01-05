@@ -55,6 +55,7 @@ void MainWindow::rePlot(){
 
 void MainWindow::timerSlot(){
     this->refreshData();
+    std::cout << this->dataHandler.front() << std::endl;
     this->rePlot();
 }
 
