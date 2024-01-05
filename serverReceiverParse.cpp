@@ -64,7 +64,7 @@ int main(){
 
     int socketDescriptor;
     int clientSocket;
-    if (setupSocket(&socketDescriptor, &clientSocket) != 0){
+    if (setupSocket(&clientSocket, &socketDescriptor) != 0){
         std::cerr << "Error Setting Up Socket" << std::endl;
         return -1;
     }
@@ -87,7 +87,7 @@ int main(){
     close(clientSocket);
 
     // Close the server socket
-    //close(socketDescriptor);
+    close(socketDescriptor);
 
 	return 0;
 }
