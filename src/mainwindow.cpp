@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
-    mDataTimer.start(200);
+    mDataTimer.start(100);
     dataHandler.initialise();
 }
 
