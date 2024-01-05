@@ -38,6 +38,10 @@ MainWindow::~MainWindow()
 void MainWindow::rePlot(){
     // generate some data:
     QVector<double> data = QVector<double>(this->dataHandler.sequence.begin(), this->dataHandler.sequence.end());
+
+    for (double i: data)
+        std::cout << i << ' ' << std::endl;
+
     QVector<double> x(data.size()); // initialize with entries 0..100
     // create graph and assign data to it:
     ui->graph->addGraph();
