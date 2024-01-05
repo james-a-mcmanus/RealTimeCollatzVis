@@ -12,23 +12,29 @@ unix:!macx {
     LIBS+= -lboost_system
 }
 
+macx {
+    INCLUDEPATH += /usr/local/include
+}
+
 INCLUDEPATH += "$$PWD/include"
 
 SOURCES += \
     src/messageParser.cpp \
     src/SequenceHolder.cpp \
     src/DataUpdater.cpp \
-    src/serverReceiverParse.cpp
+    src/serverReceiverParse.cpp \
+    src/qcustomplot.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp
 
-macx {
-    INCLUDEPATH += /usr/local/include
-}
-
- HEADERS += \
+HEADERS += \
     include/messageParser.h \
     include/SequenceHolder.h \
-    include/DataUpdater.h
+    include/DataUpdater.h \
+    include/qcustomplot.h \
+    include/mainwindow.h
 
+FORMS += mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

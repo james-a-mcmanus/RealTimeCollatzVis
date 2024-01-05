@@ -14,7 +14,7 @@
 #include "SequenceHolder.h"
 #include "DataUpdater.h"
 
-int main(){
+int mainSequence(){
 
     int socketDescriptor;
     int clientSocket;
