@@ -38,17 +38,14 @@ MainWindow::~MainWindow()
 void MainWindow::rePlot(){
     // generate some data:
 
+    std::cout << this->dataHandler.sequence.front() << std::endl;
     //boost::circular_buffer<double> seq = ;
-    for (auto it = this->dataHandler.sequence.begin(); it != this->dataHandler.sequence.end(); ++it)
-        std::cout << *it;
-    std::cout << std::endl;
+    //for (auto it = this->dataHandler.sequence.begin(); it != this->dataHandler.sequence.end(); ++it)
+        //std::cout << *it;
+    //std::cout << std::endl;
 
     int num_data = this->dataHandler.sequence.size();
     QVector<double> data(num_data);
-    for (int i=0; i<num_data; i++){
-        data[i] = this->dataHandler.sequence[i];
-        //std::cout << data[i];
-    }
 
     QVector<double> x(data.size()); // initialize with entries 0..100
     // create graph and assign data to it:
