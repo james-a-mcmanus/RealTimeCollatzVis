@@ -37,8 +37,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::rePlot(){
     // generate some data:
-    QVector<double> data = QVector<double>(this->dataHandler.sequence.begin(), this->dataHandler.sequence.end());
-
+    int num_data = this->dataHandler.sequence.size();
+    QVector<double> data(num_data);
+    for (int i=0; i<num_data; i++){
+        data[i] = this->dataHandler.sequence[i];
+    }
     for (double i: data)
         std::cout << i << ' ' << std::endl;
 
