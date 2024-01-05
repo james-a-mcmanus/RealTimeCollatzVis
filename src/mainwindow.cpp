@@ -41,6 +41,7 @@ void MainWindow::rePlot(){
     QVector<double> x(this->dataHandler.size()); // initialize with entries 0..100   
     QVector<double> data(this->dataHandler.size()); // initialize with entries 0..100       
     
+    // populate the data vectors.
     int i0 = 0;
     for (auto it = this->dataHandler.begin(); it != this->dataHandler.end(); ++it){
         data[i0] = *it;
@@ -56,7 +57,7 @@ void MainWindow::rePlot(){
     ui->graph->yAxis->setLabel("y");
     // set axes ranges, so we see all data:
     ui->graph->xAxis->setRange(0, 100);
-    ui->graph->yAxis->setRange(0, 200);
+    ui->graph->yAxis->setRange(0, *std::max_element(data.constBegin(), data.constEnd()));
     ui->graph->replot();
 }
 
