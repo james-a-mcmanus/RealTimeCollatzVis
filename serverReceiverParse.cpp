@@ -73,14 +73,13 @@ int main(){
 
     DataUpdater dataHandler(socketDescriptor, clientSocket, maxSequenceLen, bytesAvailable);
 
-    //std::vector<unsigned char> buffer(bytesAvailable);
-    SequenceHolder sequence(maxSequenceLen, clientSocket, bytesAvailable);
+    //SequenceHolder sequence(maxSequenceLen, clientSocket, bytesAvailable);
     // Read from the socket in 200ms intervals.
     do
     {
-        sequence.receiveMessage();
-        sequence.addFromMessage();
-        std::cout << sequence.front() << std::endl;
+        dataHandler.receiveMessage();
+        dataHandler.addFromMessage();
+        std::cout << dataHandler.front() << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     } while(true); //
 
