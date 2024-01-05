@@ -20,3 +20,9 @@ DataUpdater::DataUpdater(int socketDescriptor, int clientSocket, int sequence_le
 	this->sequence_len = sequence_len;
 	this->buffer_len = buffer_len;
 }
+
+void DataUpdater::closeConnections(){
+	std::cout <<"closing connection\n" << std::endl;
+	close(this->clientSocket);
+	close(this->socketDescriptor);
+}

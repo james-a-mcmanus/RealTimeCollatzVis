@@ -82,13 +82,9 @@ int main(){
         std::cout << dataHandler.front() << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     } while(true); //
-
-    // Close the client socket
-    std::cout <<"closing connection\n";
-    close(clientSocket);
-
-    // Close the server socket
-    close(socketDescriptor);
+    
+    // close client and server.
+    dataHandler.closeConnections();
 
 	return 0;
 }
