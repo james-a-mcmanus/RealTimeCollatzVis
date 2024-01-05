@@ -40,6 +40,8 @@ int MessageParser::receiveMessage(){
 
 int MessageParser::parseMessage(short *num){
 
+
+	std::cout << this->buffer[0] << std::endl;
 	// first 4 chars are the header. We don't know much about what they mean, 
 	// so just check that they are the same as we have seen previously or throw an error.
 	if (this->MessageParser::checkHeader() != 0){

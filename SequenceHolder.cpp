@@ -25,12 +25,10 @@ SequenceHolder::SequenceHolder(int seqlen, int socket, int buf_len) : MessagePar
 int SequenceHolder::addFromMessage(){
 
 	short nextNum;
-	std::cout << "28" << std::endl;
 	if (this->SequenceHolder::parseMessage(&nextNum) != 0){
 		std::cerr << "Parsing Error" << std::endl;
 		return -1;
 	}
-	std::cout << "32" << std::endl;
 	this->SequenceHolder::sequence.push_front((int)nextNum); // should be safe conversion since int >= 16bytes
 	
 	if (this->SequenceHolder::checkCollatz() != 0){
