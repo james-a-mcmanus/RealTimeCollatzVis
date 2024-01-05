@@ -68,9 +68,11 @@ int main(){
         std::cerr << "Error Setting Up Socket" << std::endl;
         return -1;
     }
-
     int bytesAvailable = 128;
     int maxSequenceLen = 5000;
+
+    DataUpdater dataHandler(socketDescriptor, clientSocket, maxSequenceLen, bytesAvailable);
+
     //std::vector<unsigned char> buffer(bytesAvailable);
     SequenceHolder sequence(maxSequenceLen, clientSocket, bytesAvailable);
     // Read from the socket in 200ms intervals.

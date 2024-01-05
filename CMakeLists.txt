@@ -16,7 +16,7 @@ find_package(Boost 1.10.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS}) 
 
 
-set(SOURCE_FILES messageParser.cpp SequenceHolder.cpp serverReceiverParse.cpp)
+set(SOURCE_FILES messageParser.cpp SequenceHolder.cpp DataUpdater.cpp serverReceiverParse.cpp)
 
 add_executable(serverReceiverParse ${SOURCE_FILES})
 target_link_libraries(serverReceiverParse ${Boost_LIBRARIES})
