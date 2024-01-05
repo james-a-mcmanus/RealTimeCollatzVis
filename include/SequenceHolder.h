@@ -8,7 +8,7 @@
 class SequenceHolder: public MessageParser {
 	public:
 		int max_seq_len;
-		boost::circular_buffer<int> sequence;
+		boost::circular_buffer<double> sequence;
 		SequenceHolder(int seqlen, int buf_len);
 		int checkCollatz();
 		int addFromMessage();

@@ -38,8 +38,9 @@ MainWindow::~MainWindow()
 void MainWindow::rePlot(){
     // generate some data:
 
-    for (double i: this->dataHandler.sequence)
-        std::cout << i;
+    boost::circular_buffer<double> seq = this->dataHandler.sequence;
+    for (auto it = seq.begin(); it != seq.end(); ++it)
+        std::cout << *it;
     std::cout << std::endl;
 
     int num_data = this->dataHandler.sequence.size();
