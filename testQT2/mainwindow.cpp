@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "qcustomplot.h"
 #include "ui_mainwindow.h"
+#include "boost/thread.hpp"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
