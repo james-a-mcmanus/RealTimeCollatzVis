@@ -11,4 +11,6 @@ public:
 	void closeConnections();
 };
 
+int setupSocket(int* cs, int* sd);
+
 #endif
