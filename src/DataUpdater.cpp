@@ -15,8 +15,6 @@
 #include "DataUpdater.h"
 
 DataUpdater::DataUpdater(int sequence_len, int buffer_len) : SequenceHolder(sequence_len, buffer_len) {
-	//this->socketDescriptor = -1;
-	//this->clientSocket = -1;
 	this->sequence_len = sequence_len;
 	this->buffer_len = buffer_len;
 }

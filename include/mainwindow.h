@@ -21,12 +21,12 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    void generateData();
+    void rePlot();
+    void refreshData();
     ~MainWindow();
     DataUpdater dataHandler;
 
 private slots:
-    void on_updateGraph_clicked();
     void timerSlot();
 
 private:

@@ -35,32 +35,32 @@ MainWindow::~MainWindow()
     delete ui;
 };
 
-void MainWindow::generateData(){
+void MainWindow::rePlot(){
     // generate some data:
-    QVector<double> x(100), y(100); // initialize with entries 0..100
-    for (int i=0; i<100; ++i)
-    {
-        x[i] = i/50.0 - 1; // x goes from -1 to 1
-        y[i] = x[i]*x[i]; // let's plot a quadratic function
-    };
+    QVector<double> data = QVector<double>(this->dataHandler.sequence.begin(), this->dataHandler.sequence.end());
+    QVector<double> x(data.size()); // initialize with entries 0..100
     // create graph and assign data to it:
     ui->graph->addGraph();
-    ui->graph->graph(0)->setData(x,y);//(0)->setData(x, y);
+    ui->graph->graph(0)->setData(x,data);//(0)->setData(x, y);
     // give the axes some labels:
     ui->graph->xAxis->setLabel("x");
     ui->graph->yAxis->setLabel("y");
     // set axes ranges, so we see all data:
-    ui->graph->xAxis->setRange(-4, 4);
-    ui->graph->yAxis->setRange(-4, 5);
+    ui->graph->xAxis->setRange(0, 100);
+    ui->graph->yAxis->setRange(0, 200);
     ui->graph->replot();
 }
 
-void MainWindow::on_updateGraph_clicked()
-{
-    this->generateData();
-}
 
 
 void MainWindow::timerSlot(){
-    this->generateData();
+    this->refreshData();
+    this->rePlot();
+}
+
+
+void MainWindow::refreshData(){
+    dataHandler.receiveMessage();
+    dataHandler.addFromMessage();
+    //QVector<...> qVec = QVector<...>(stdVec.begin(), stdVec.end());
 }
