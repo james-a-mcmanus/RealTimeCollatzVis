@@ -24,13 +24,13 @@ class MessageParser
 		short nextNum();
 		int checkHeader();
 
-		MessageParser(int s, int b, std::vector<unsigned char> buf);
+		MessageParser(int s, int buf_len);
 };
 
-MessageParser::MessageParser(int s, int b, std::vector<unsigned char> buf){
+MessageParser::MessageParser(int s, int buf_len){//std::vector<unsigned char> buf){
 	socketNumber = s;
-	messageLength = b;
-	buffer = buf;
+	messageLength = buf_len;
+	std::vector<unsigned char> buffer(buf_len);;
 };
 
 int MessageParser::receiveMessage(){

@@ -7,17 +7,16 @@
 class SequenceHolder: public MessageParser {
 
 	public:
-		//std::queue<int> sequence;
 		boost::circular_buffer<int> sequence;
 		int max_seq_len;
 		int addFromMessage();
 		int front();
 		int checkCollatz();
-		SequenceHolder(int seqlen, int socket, int bytes, std::vector<unsigned char> buf);
+		SequenceHolder(int seqlen, int socket, int buf_len);
 };
 
 // Constructor
-SequenceHolder::SequenceHolder(int seqlen, int socket, int bytes, std::vector<unsigned char> buf) : MessageParser(socket, bytes, buf){
+SequenceHolder::SequenceHolder(int seqlen, int socket, int buf_len) : MessageParser(socket, buf_len){
 	max_seq_len = seqlen;
 	sequence.set_capacity(seqlen);
 };

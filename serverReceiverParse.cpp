@@ -12,6 +12,7 @@
 
 #include "messageParser.h"
 #include "SequenceHolder.h"
+#include "DataUpdater.h"
 
 int main(){
 
@@ -59,7 +60,7 @@ int main(){
     int bytesAvailable = 128;
     int maxSequenceLen = 5000;
     std::vector<unsigned char> buffer(bytesAvailable);
-    SequenceHolder sequence(maxSequenceLen, clientSocket, bytesAvailable, buffer);
+    SequenceHolder sequence(maxSequenceLen, clientSocket, bytesAvailable);
     
     // Read from the socket in 200ms intervals.
     do
