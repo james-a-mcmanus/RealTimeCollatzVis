@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "qcustomplot.h"
-#include "boost/circular_buffer"
+#include "boost/circular_buffer.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

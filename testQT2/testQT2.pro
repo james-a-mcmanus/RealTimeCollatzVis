@@ -14,6 +14,10 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp
 
+macx {
+    INCLUDEPATH += /usr/local/include
+}
+
 HEADERS += \
     ../qcustomplot/qcustomplot.h \
     mainwindow.h
