@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "qcustomplot.h"
+#include "boost/circular_buffer"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,6 +19,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     void generateData();
     ~MainWindow();
+    //boost::circular_buffer<int> sequence;
 
 private slots:
     void on_updateGraph_clicked();

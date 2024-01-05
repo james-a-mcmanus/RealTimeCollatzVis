@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "qcustomplot.h"
 #include "ui_mainwindow.h"
-#include "boost/thread.hpp"
+#include "boost/circular_buffer.hpp"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&mDataTimer, SIGNAL(timeout()), this, SLOT(timerSlot()));
     mDataTimer.start(200);
     counter = 0;
+    //sequence.set_capacity(100);
 }
 
 MainWindow::~MainWindow()
