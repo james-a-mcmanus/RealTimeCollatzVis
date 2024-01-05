@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,8 +21,11 @@ public:
 
 private slots:
     void on_updateGraph_clicked();
+    void timerSlot();
 
 private:
     Ui::MainWindow *ui;
+    QTimer mDataTimer;
+    int counter;
 };
 #endif // MAINWINDOW_H
