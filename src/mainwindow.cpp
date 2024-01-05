@@ -45,6 +45,7 @@ void MainWindow::rePlot(){
     for (auto it = this->dataHandler.begin(); it != this->dataHandler.end(); ++it){
         data[i0] = *it;
         x[i0] = i0;
+        i0++;
     }
 
     // create graph and assign data to it:
