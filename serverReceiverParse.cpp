@@ -61,14 +61,13 @@ int main(){
     int maxSequenceLen = 5000;
     //std::vector<unsigned char> buffer(bytesAvailable);
     SequenceHolder sequence(maxSequenceLen, clientSocket, bytesAvailable);
-    std::cout << "64" << std::endl;
     // Read from the socket in 200ms intervals.
     do
     {
-        std::cout << "68" << std::endl;
         sequence.receiveMessage();
-        std::cout << "70" << std::endl;
+        std::cout << "68" << std::endl;
         sequence.addFromMessage();
+        std::cout << "70" << std::endl;
         std::cout << sequence.front() << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     } while(true); //
