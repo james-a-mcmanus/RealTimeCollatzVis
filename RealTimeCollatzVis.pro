@@ -23,7 +23,6 @@ SOURCES += \
     src/messageParser.cpp \
     src/SequenceHolder.cpp \
     src/DataUpdater.cpp \
-    src/serverReceiverParse.cpp \
     src/qcustomplot.cpp \
     src/main.cpp \
     src/mainwindow.cpp

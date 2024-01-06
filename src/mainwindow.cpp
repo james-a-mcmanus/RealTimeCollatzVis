@@ -1,24 +1,13 @@
 #include "mainwindow.h"
 #include "qcustomplot.h"
 #include "ui_mainwindow.h"
-#include "boost/circular_buffer.hpp"
 
-//#include <iostream>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <math.h>
 
-//#include <cstring>
-//#include <vector>
-//#include <iomanip>
-
-//#include <thread>
-//#include <chrono>
-
-//#include "messageParser.h"
-//#include "SequenceHolder.h"
 #include "DataUpdater.h"
 
 MainWindow::MainWindow(QWidget *parent)
