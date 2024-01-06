@@ -125,14 +125,14 @@ void MainWindow::on_updateGraph_clicked()
     refreshing = !refreshing;
 }
 
-
+//
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
     this->mDataTimer.setInterval(value);
     ui->sliderLabel->setText(QString::number(value));
 }
 
-
+//
 void MainWindow::on_checkBox_stateChanged(int arg1)
 {
     this->doLog = !this->doLog;
