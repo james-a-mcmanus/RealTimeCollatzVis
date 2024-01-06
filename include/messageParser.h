@@ -1,6 +1,8 @@
 #ifndef _MessageParser_
 #define _MessageParser_
 
+#include <vector>
+
 class MessageParser
 {
 	public:
