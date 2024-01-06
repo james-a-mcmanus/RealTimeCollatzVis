@@ -1,6 +1,7 @@
 #include <iostream>
 #include "messageParser.h"
 #include <boost/circular_buffer.hpp>
+#include <vector>
 
 // Holds the sequence of numbers read out from the message parser.
 class SequenceHolder: public MessageParser {
