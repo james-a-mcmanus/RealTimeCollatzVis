@@ -86,10 +86,10 @@
      </rect>
     </property>
     <property name="minimum">
-     <number>10</number>
+     <number>20</number>
     </property>
     <property name="maximum">
-     <number>200</number>
+     <number>400</number>
     </property>
     <property name="singleStep">
      <number>10</number>
