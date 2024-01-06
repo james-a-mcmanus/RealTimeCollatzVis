@@ -14,9 +14,8 @@
 #include "SequenceHolder.h"
 #include "DataUpdater.h"
 
-DataUpdater::DataUpdater(int sequence_len, int buffer_len) : SequenceHolder(sequence_len, buffer_len) {
+DataUpdater::DataUpdater(int sequence_len, int mssg_len, int num_mssg) : SequenceHolder(sequence_len, mssg_len, num_mssg){
 	this->sequence_len = sequence_len;
-	this->buffer_len = buffer_len;
 }
 
 void DataUpdater::closeConnections(){

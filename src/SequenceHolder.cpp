@@ -12,14 +12,14 @@ class SequenceHolder: public MessageParser {
 		int addFromMessage();
 		int front();
 		int checkCollatz();
-		SequenceHolder(int seqlen, int buf_len);
+		SequenceHolder(int seqlen, int mssg_len, int num_mssg);
 		boost::circular_buffer<double>::const_reverse_iterator begin();
 		boost::circular_buffer<double>::const_reverse_iterator end();
 		int size();
 };
 
 // Constructor
-SequenceHolder::SequenceHolder(int seqlen, int buf_len) : MessageParser(buf_len){
+SequenceHolder::SequenceHolder(int seqlen, int mssg_len, int num_mssg) : MessageParser(mssg_len, num_mssg){
 	max_seq_len = seqlen;
 	sequence.set_capacity(seqlen);
 };

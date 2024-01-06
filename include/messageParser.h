@@ -7,12 +7,13 @@ class MessageParser
 		int clientSocket;
 		int socketDescriptor;
 		int messageLength;
+		int bufferLength;
 		std::vector<unsigned char> buffer;
 		std::vector<unsigned char> expectedHeader;
 		int bufferReadPos;
 		void nextReadPosition();
 		void resetReadPosition();		
-		MessageParser(int buf_len);
+		MessageParser(int mssg_len, int num_mssg);
 		int receiveMessage();
 		int parseMessage(short *num);
 		int checkState(short num);

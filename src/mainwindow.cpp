@@ -21,7 +21,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , dataHandler(100, 100)
+    , dataHandler(100, 7, 14)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);

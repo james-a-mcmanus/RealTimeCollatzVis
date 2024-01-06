@@ -15,6 +15,7 @@ class MessageParser
 		int clientSocket;
 		int socketDescriptor;
 		int messageLength;
+		int bufferLength;
 		std::vector<unsigned char> buffer;
 		std::vector<unsigned char> expectedHeader = {0x64, 0x82, 0x3, 0x0};
 		int bufferReadPos;
@@ -29,14 +30,15 @@ class MessageParser
 		int setupSocket(int* cs, int* sd);
 		int initialise();
 
-		MessageParser(int buf_len);
+		MessageParser(int mssg_len, int num_mssg);
 };
 
-MessageParser::MessageParser(int buf_len){
+MessageParser::MessageParser(int mssg_len, int num_mssg){
 	clientSocket = -1;
 	socketDescriptor = -1;
-	messageLength = buf_len;
-	std::vector<unsigned char> buf(buf_len);
+	messageLength = mssg_len;
+	bufferLength = mssg_len*num_mssg;
+	std::vector<unsigned char> buf(mssg_len*num_mssg);
 	buffer = buf;
 	bufferReadPos = 0;
 };
@@ -53,13 +55,15 @@ int MessageParser::initialise(){
     return 0;
 }
 
+// Read data from the socket into the buffer.
 int MessageParser::receiveMessage(){
 	// TODO: check clientSocket > 0;
 	int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
-	int numMessages = bytesRead / 7;
+	int numMessages = bytesRead / this->messageLength;
 	return numMessages;
 }
 
+// Check next message in the buffer for the header and state parity.
 int MessageParser::parseMessage(short *num){
 
 	// first 4 chars are the header. We don't know much about what they mean, 
@@ -82,17 +86,18 @@ int MessageParser::parseMessage(short *num){
 	return 0;
 }
 
+// Shift the read position of the buffer to the next message.
 void MessageParser::nextReadPosition(){
-	this->bufferReadPos+=7;
+	this->bufferReadPos+=this->messageLength;
 }
 
+// Reset the buffer read position.
 void MessageParser::resetReadPosition(){
 	this->bufferReadPos=0;
 }
 
-// TODO: Check the header from the message
+// Check the header from the message is as expected.
 int MessageParser::checkHeader(){
-
 	for (int i = 0; i < 3; i++){
 		if (this->buffer[i+this->bufferReadPos] != this->expectedHeader[i]){
             std::cerr << std::hex << "Expected :" << int(this->expectedHeader[i]) << " Received: " << int(this->buffer[i+this->bufferReadPos]) << std::endl;
@@ -100,12 +105,6 @@ int MessageParser::checkHeader(){
 		}
 	}
 	return 0;
-	// if (headerMessage != expectedHeader){
-	// 	//std::cerr << "Header received unexpected" << std::endl;
-	// 	for (auto const& c : headerMessage)
-	// 		std::cout << std::hex << (int)c << ' ';
-	// 	std::cout << std::endl;
-	// }
 }
 
 // Retrieve the number from the message (contained in 4th and 5th bytes in reverse order)
