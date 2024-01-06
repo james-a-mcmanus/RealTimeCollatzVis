@@ -16,8 +16,10 @@ class MessageParser
 		int socketDescriptor;
 		int messageLength;
 		std::vector<unsigned char> buffer;
-		std::vector<unsigned char> expectedHeader = {64, 82, 3, 0};
-
+		std::vector<unsigned char> expectedHeader = {0x64, 0x82, 0x3, 0x0};
+		int bufferReadPos;
+		void nextReadPosition();
+		void resetReadPosition();
 		int receiveMessage();
 		int parseMessage(short *num);
 		int checkState(short num);
@@ -36,6 +38,7 @@ MessageParser::MessageParser(int buf_len){
 	messageLength = buf_len;
 	std::vector<unsigned char> buf(buf_len);
 	buffer = buf;
+	bufferReadPos = 0;
 };
 
 int MessageParser::initialise(){
@@ -53,7 +56,8 @@ int MessageParser::initialise(){
 int MessageParser::receiveMessage(){
 	// TODO: check clientSocket > 0;
 	int bytesRead = recv(clientSocket, buffer.data(), buffer.size(), 0);
-	return bytesRead;
+	int numMessages = bytesRead / 7;
+	return numMessages;
 }
 
 int MessageParser::parseMessage(short *num){
@@ -72,11 +76,29 @@ int MessageParser::parseMessage(short *num){
 		return -1;
 	}
 
+	// change read position for the buffer.
+	this->nextReadPosition();
+
 	return 0;
+}
+
+void MessageParser::nextReadPosition(){
+	this->bufferReadPos+=7;
+}
+
+void MessageParser::resetReadPosition(){
+	this->bufferReadPos=0;
 }
 
 // TODO: Check the header from the message
 int MessageParser::checkHeader(){
+
+	for (int i = 0; i < 3; i++){
+		if (this->buffer[i+this->bufferReadPos] != this->expectedHeader[i]){
+            std::cerr << std::hex << "Expected :" << int(this->expectedHeader[i]) << " Received: " << int(this->buffer[i+this->bufferReadPos]) << std::endl;
+            return -1;
+		}
+	}
 	return 0;
 	// if (headerMessage != expectedHeader){
 	// 	//std::cerr << "Header received unexpected" << std::endl;
@@ -89,15 +111,15 @@ int MessageParser::checkHeader(){
 // Retrieve the number from the message (contained in 4th and 5th bytes in reverse order)
 short MessageParser::nextNum(){
 	short j;
-	j = buffer[5];
+	j = buffer[5+this->bufferReadPos];
 	j <<= 8;
-	j |= buffer[4];
+	j |= buffer[4+this->bufferReadPos];
 	return j;
 }
 
 // Retrieve the number-state from the message (contained at the 6th byte)
 int MessageParser::nextState(){
-	int state = (int)buffer[6];
+	int state = (int)buffer[6+this->bufferReadPos];
 	return state;
 }
 

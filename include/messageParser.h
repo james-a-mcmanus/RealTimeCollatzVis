@@ -9,6 +9,9 @@ class MessageParser
 		int messageLength;
 		std::vector<unsigned char> buffer;
 		std::vector<unsigned char> expectedHeader;
+		int bufferReadPos;
+		void nextReadPosition();
+		void resetReadPosition();		
 		MessageParser(int buf_len);
 		int receiveMessage();
 		int parseMessage(short *num);

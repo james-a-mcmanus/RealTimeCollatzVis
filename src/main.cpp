@@ -8,5 +8,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
     // TODO: work out how to close
-    return a.exec();
+    int a_ret = a.exec();
+    w.dataHandler.closeConnections();
+    return a_ret;
 }

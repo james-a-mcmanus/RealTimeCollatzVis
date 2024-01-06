@@ -25,9 +25,12 @@ public:
     void refreshData();
     ~MainWindow();
     DataUpdater dataHandler;
+    bool refreshing;
 
 private slots:
     void timerSlot();
+
+    void on_updateGraph_clicked();
 
 private:
     Ui::MainWindow *ui;

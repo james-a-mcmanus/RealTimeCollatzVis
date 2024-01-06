@@ -28,16 +28,22 @@ SequenceHolder::SequenceHolder(int seqlen, int buf_len) : MessageParser(buf_len)
 int SequenceHolder::addFromMessage(){
 
 	short nextNum;
-	if (this->SequenceHolder::parseMessage(&nextNum) != 0){
-		std::cerr << "Parsing Error" << std::endl;
-		return -1;
+	int numMessages = this->receiveMessage();
+
+	for (int i=0; i < numMessages; i++){
+		
+		if (this->SequenceHolder::parseMessage(&nextNum) != 0){
+			std::cerr << "Parsing Error" << std::endl;
+			return -1;
+		}
+		this->SequenceHolder::sequence.push_front(static_cast<double>(nextNum));
+		
+		if (this->SequenceHolder::checkCollatz() != 0){
+			std::cerr << "Collatz Error" << std::endl;
+			return -1;
+		}
 	}
-	this->SequenceHolder::sequence.push_front(static_cast<double>(nextNum)); // should be safe conversion since int >= 16bytes
-	
-	if (this->SequenceHolder::checkCollatz() != 0){
-		std::cerr << "Collatz Error" << std::endl;
-		return -1;
-	}
+	this->resetReadPosition();
 	return 0;
 }
 
