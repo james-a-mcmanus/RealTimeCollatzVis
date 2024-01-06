@@ -14,8 +14,8 @@
 
 
 - To build, navigate to the install directory:
-	- `qmake RealTimeCollatzVis.pro`
 	- `mkdir build`
 	- `cd build`
+ 	- `qmake RealTimeCollatzVis.pro`
 	- `make`
 
