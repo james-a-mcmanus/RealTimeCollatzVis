@@ -14,10 +14,12 @@
 #include "SequenceHolder.h"
 #include "DataUpdater.h"
 
+// Wrapper function to 
 DataUpdater::DataUpdater(int sequence_len, int mssg_len, int num_mssg) : SequenceHolder(sequence_len, mssg_len, num_mssg){
 	this->sequence_len = sequence_len;
 }
 
+// Close 
 void DataUpdater::closeConnections(){
 	std::cout <<"closing connection\n" << std::endl;
 	close(this->clientSocket);

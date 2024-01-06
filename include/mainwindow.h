@@ -26,11 +26,14 @@ public:
     ~MainWindow();
     DataUpdater dataHandler;
     bool refreshing;
+    bool doLog;
 
 private slots:
     void timerSlot();
-
     void on_updateGraph_clicked();
+    void on_horizontalSlider_valueChanged(int value);
+
+    void on_checkBox_stateChanged(int arg1);
 
 private:
     Ui::MainWindow *ui;

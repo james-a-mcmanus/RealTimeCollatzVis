@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <stdlib.h>
 
+// Handles the connection to, and reading from the socket, as well as parsing messages in the socket data.
 class MessageParser
 {
 	public:
@@ -33,6 +34,7 @@ class MessageParser
 		MessageParser(int mssg_len, int num_mssg);
 };
 
+// Constructor
 MessageParser::MessageParser(int mssg_len, int num_mssg){
 	clientSocket = -1;
 	socketDescriptor = -1;
@@ -43,6 +45,7 @@ MessageParser::MessageParser(int mssg_len, int num_mssg){
 	bufferReadPos = 0;
 };
 
+// Connect to the socket.
 int MessageParser::initialise(){
 	int sd;
     int cs;

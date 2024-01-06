@@ -4,6 +4,7 @@
 #include "messageParser.h"
 #include <boost/circular_buffer.hpp>
 
+// Holds the sequence of numbers read out from the message parser.
 class SequenceHolder: public MessageParser {
 
 	public:
@@ -24,7 +25,7 @@ SequenceHolder::SequenceHolder(int seqlen, int mssg_len, int num_mssg) : Message
 	sequence.set_capacity(seqlen);
 };
 
-// Add the number from the message buffer into the sequence.
+// Add the numbers from the message buffer into the sequence.
 int SequenceHolder::addFromMessage(){
 
 	short nextNum;
@@ -47,20 +48,22 @@ int SequenceHolder::addFromMessage(){
 	return 0;
 }
 
-
 // Return the last number in the sequence
 int SequenceHolder::front(){
 	return this->SequenceHolder::sequence.front();
 }
 
+// Iterator for the beginning of the circular buffer sequence
 boost::circular_buffer<double>::const_reverse_iterator SequenceHolder::begin(){
 	return this->SequenceHolder::sequence.rbegin();
 }
 
+// Iterator for the end of the circular buffer sequence
 boost::circular_buffer<double>::const_reverse_iterator SequenceHolder::end(){
 	return this->SequenceHolder::sequence.rend();
 }
 
+// Size of the circular buffer sequence.
 int SequenceHolder::size(){
 	return this->SequenceHolder::sequence.size();
 }
