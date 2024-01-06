@@ -8,7 +8,7 @@
 #include "SequenceHolder.h"
 #include "DataUpdater.h"
 
-// Wrapper function to 
+// Class to hold the sequence data, possibly later implement more meta functions.
 DataUpdater::DataUpdater(int sequence_len, int mssg_len, int num_mssg) : SequenceHolder(sequence_len, mssg_len, num_mssg){
 	this->sequence_len = sequence_len;
 }
