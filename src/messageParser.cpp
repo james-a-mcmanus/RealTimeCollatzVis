@@ -3,6 +3,7 @@
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <vector>
 
 // Handles the connection to, and reading from the socket, as well as parsing messages in the socket data.
 class MessageParser
